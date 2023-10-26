@@ -644,6 +644,7 @@ class EditAnythingLoraModel:
         ref_textinv=True,
         ref_textinv_path=None,
         ref_scale=None,
+        replace_select=None
     ):
 
         if condition_model is None or condition_model == "EditAnything":
@@ -674,6 +675,14 @@ class EditAnythingLoraModel:
                 mask_image = source_image["mask"]
         else:
             mask_image = np.array(mask_image, dtype=np.uint8)
+        
+        if replace_select == "Background":
+            inv_mask_image = mask_image.copy()
+            inv_mask_image[mask_image == 255] = 0
+            inv_mask_image[mask_image == 0] = 255
+            print('Mask', inv_mask_image)
+            mask_image = inv_mask_image
+
         if self.default_controlnet_path != this_controlnet_path:
             print(
                 "To Use:",

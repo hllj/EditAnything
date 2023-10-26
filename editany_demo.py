@@ -52,6 +52,14 @@ def create_demo_template(
                                     value="Reset Image", interactive=True
                                 )
                         with gr.Row():
+                            replace_select = gr.Radio(
+                                choices=["Foreground", "Background"],
+                                value="Background",
+                                label="Replacement For",
+                                interactive=True,
+                                show_label=False
+                            )
+                        with gr.Row():
                             run_button_click = gr.Button(
                                 label="Run EditAnying", interactive=True
                             )
@@ -406,6 +414,7 @@ def create_demo_template(
             ref_textinv,
             ref_textinv_path,
             ref_scale,
+            replace_select
         ]
 
         run_button_click.click(
